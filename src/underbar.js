@@ -121,7 +121,7 @@
       cache.push( iterator(item) );
     });
     _.each(cache, function(item, index) {
-      if ( index === _.indexOf(item) ) {
+      if ( index === _.indexOf(cache, item) ) {
         result.push(array[index]);
       }
     });
@@ -292,6 +292,7 @@
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
+    return array;
   };
 
 
