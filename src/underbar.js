@@ -249,13 +249,26 @@
   //   }, {
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
-  _.extend = function(obj) {
-    
+  _.extend = function(obj, ...args) {
+    for (var i = 0; i < args.length; i++) {
+      for (var key in args[i]) {
+        obj[key] = args[i][key];
+      }
+    }
+    return obj;
   };
 
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
-  _.defaults = function(obj) {
+  _.defaults = function(obj, ...args) {
+    for (var i = 0; i < args.length; i++) {
+      for (var key in args[i]) {
+        if (obj[key] === undefined) {
+          obj[key] = args[i][key];
+        }
+      }
+    }
+    return obj;
   };
 
 
@@ -299,6 +312,15 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+    var cache = {};
+    var args = Array.from(arguments);
+    var stringedArgs = JSON.stringify(args);
+    return function() {
+      if ( cache [stringedArgs] === undefined) {
+        cache [stringedArgs] = func.apply (null, args);
+      }
+      return cache[ stringedArgs ];
+    }
   };
 
   // Delays a function for the given number of milliseconds, and then calls
