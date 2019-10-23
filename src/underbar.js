@@ -313,11 +313,11 @@
   // instead if possible.
   _.memoize = function(func) {
     var cache = {};
-    var args = Array.from(arguments);
-    var stringedArgs = JSON.stringify(args);
     return function() {
-      if ( cache [stringedArgs] === undefined) {
-        cache [stringedArgs] = func.apply (null, args);
+      var args = Array.from(arguments);
+      var stringedArgs = JSON.stringify(args);
+      if ( cache[stringedArgs] === undefined) {
+        cache[stringedArgs] = func.apply (null, args);
       }
       return cache[ stringedArgs ];
     }
