@@ -347,9 +347,10 @@
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
+    //copy array into arraycopy
     //declare new array
-    //while array is not empty
-    //pop a random element from array, result into new array
+    //while arraycopy is not empty
+    //pop a random element from arraycopy, result into new array
     //return new array;
   };
 
