@@ -120,6 +120,7 @@
       // if result does not exist, save result in cache
       cache.push( iterator(item) );
     });
+
     _.each(cache, function(item, index) {
       if ( index === _.indexOf(cache, item) ) {
         result.push(array[index]);
@@ -134,6 +135,11 @@
     // map() is a useful primitive iteration function that works a lot
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
+    var result = [];
+    _.each(collection, function(item, index) {
+      result.push(iterator(item));
+    });
+    return result;
   };
 
   /*
@@ -175,6 +181,14 @@
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
+    if (accumulator === undefined) {
+      accumulator = collection[0];
+      collection = collection.slice(1);
+    }
+    _.each(collection, function(item, index) {
+      accumulator = iterator(accumulator, item);
+    });
+    return accumulator;
   };
 
   // Determine if the array or object contains a given value (using `===`).
@@ -193,12 +207,27 @@
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
     // TIP: Try re-using reduce() here.
+    if ( iterator === undefined ) {
+      iterator = _.identity;
+    }
+    return _.reduce(collection, function(allTrue, item) {
+      if ( !iterator(item) ) {
+        return false;
+      }
+      return allTrue;
+    }, true);
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
+    if ( iterator === undefined ) {
+      iterator = _.identity;
+    }
+    return !_.every(collection, function(item) {
+      return !iterator(item);
+    });
   };
 
 
@@ -221,6 +250,7 @@
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
   _.extend = function(obj) {
+    
   };
 
   // Like extend, but doesn't ever overwrite a key that already
@@ -292,7 +322,7 @@
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
-    return array;
+    //return array;
   };
 
 
