@@ -317,7 +317,7 @@
       var args = Array.from(arguments);
       var stringedArgs = JSON.stringify(args);
       if ( cache[stringedArgs] === undefined) {
-        cache[stringedArgs] = func.apply (null, args);
+        cache[stringedArgs] = func.apply(null, args);
       }
       return cache[ stringedArgs ];
     }
@@ -330,6 +330,9 @@
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
+    setTimeout(function(){
+      //run func?
+    }, wait);
   };
 
 
@@ -344,7 +347,10 @@
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
-    //return array;
+    //declare new array
+    //while array is not empty
+    //pop a random element from array, result into new array
+    //return new array;
   };
 
 
